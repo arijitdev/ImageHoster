@@ -1,8 +1,9 @@
 package ImageHoster;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-//To Start from https://learn.upgrad.com/v/course/248/session/33688/segment/178879
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 public class ImageHosterApplication {
