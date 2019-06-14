@@ -91,18 +91,33 @@ public class ImageController {
     @RequestMapping(value = "/editImage", method = RequestMethod.PUT)
     public String editImageSubmit(@RequestParam("file") MultipartFile file, @RequestParam("imageId") Integer imageId, Image updatedImage, HttpSession session) throws IOException {
 
-        //Complete the method
-    	User user = (User) session.getAttribute("loggeduser");
+        Image image = imageService.getImage(imageId);
+        String updatedImageData = convertUploadedFileToBase64(file);
+
+        if (updatedImageData.isEmpty())
+            updatedImage.setImageFile(image.getImageFile());
+        else {
+            updatedImage.setImageFile(updatedImageData);
+        }
+
+        updatedImage.setId(imageId);
+        User user = (User) session.getAttribute("loggeduser");
+        updatedImage.setUser(user);
+        updatedImage.setDate(new Date());
+
+        imageService.updateImage(updatedImage);
+        return "redirect:/images/" + updatedImage.getTitle();
+    }
+
+
+    //This controller method is called when the request pattern is of type 'deleteImage' and also the incoming request is of DELETE type
+    //The method calls the deleteImage() method in the business logic passing the id of the image to be deleted
+    //Looks for a controller method with request mapping of type '/images'
+    @RequestMapping(value = "/deleteImage", method = RequestMethod.DELETE)
+    public String deleteImageSubmit(@RequestParam(name = "imageId") Integer imageId) {
+            	
+    	imageService.deleteImage(imageId);
     	
-    	
-    	String uploadedImageData = convertUploadedFileToBase64(file);
-    	
-    	updatedImage.setImageFile(uploadedImageData);
-    	updatedImage.setUser(user);
-    	updatedImage.setId(imageId);
-    	updatedImage.setDate(new Date());
-    	imageService.updateImage(updatedImage);
-    	    	
     	return "redirect:/images";
     }
 
