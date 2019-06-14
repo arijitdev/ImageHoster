@@ -11,15 +11,12 @@ import java.util.List;
 
 @Service
 public class ImageService {
-	
-	
     @Autowired
     private ImageRepository imageRepository;
 
     //Call the getAllImages() method in the Repository and obtain a List of all the images in the database
     public List<Image> getAllImages() {
-        //Complete the method
-    	return imageRepository.getAllImages();
+        return imageRepository.getAllImages();
     }
 
 
@@ -31,8 +28,18 @@ public class ImageService {
 
     //The method calls the getImageByTitle() method in the Repository and passes the title of the image to be fetched
     public Image getImageByTitle(String title) {
-        //Complete the method
-    	
-    	return imageRepository.getImageByTitle(title);
+        return imageRepository.getImageByTitle(title);
     }
+
+    //The method calls the getImage() method in the Repository and passes the id of the image to be fetched
+    public Image getImage(Integer imageId) {
+        return imageRepository.getImage(imageId);
+    }
+
+    //The method calls the updateImage() method in the Repository and passes the Image to be updated in the database
+    public void updateImage(Image updatedImage) {
+        //Complete the method
+    	imageRepository.updateImage(updatedImage);
+    }
+
 }
