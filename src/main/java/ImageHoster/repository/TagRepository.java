@@ -24,16 +24,13 @@ public class TagRepository {
         return tag;
     }
 
-    public Tag getTagByName(String tagName) {
-    	
-    	EntityManager em = emf.createEntityManager();
-
+    public Tag findTag(String tagName) {
+        EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Tag> typedQuery = em.createQuery("SELECT t from Tag t where t.name =:name", Tag.class).setParameter("name", tagName);
+            TypedQuery<Tag> typedQuery = em.createQuery("SELECT t from Tag t where t.name =:tagName", Tag.class).setParameter("tagName", tagName);
             return typedQuery.getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }
-    	
     }
 }

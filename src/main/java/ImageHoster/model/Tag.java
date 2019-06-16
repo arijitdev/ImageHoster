@@ -37,35 +37,27 @@ public class Tag {
         this.name = tagName;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-   //Generate getters and setters for all the attributes
-    
-	public Integer getId() {
-		return id;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public List<Image> getImages() {
+        return images;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<Image> getImages() {
-		return images;
-	}
-
-	public void setImages(List<Image> images) {
-		
-		this.images=images;
-	
-	}
-    
-    
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 }

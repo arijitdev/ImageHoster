@@ -40,10 +40,19 @@ public class UserController {
     //This controller method is called when the request pattern is of type 'users/registration' and also the incoming request is of POST type
     //This method calls the business logic and after the user record is persisted in the database, directs to login page
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
-    public String registerUser(User user) {
-        userService.registerUser(user);
-        return "redirect:/users/login";
-    }
+    public String registerUser(User user,Model model) {
+        
+        if (!checkPassWord(user.getPassword())) {
+        	String error="Password must contain at least 1 alphabet, 1 number & 1 special character";
+        	model.addAttribute("User",user);
+        	model.addAttribute("passwordTypeError", error);
+        	
+        	return "users/registration";
+        } else {
+        	userService.registerUser(user);
+            return "redirect:/users/login";
+        }
+     }
 
     //This controller method is called when the request pattern is of type 'users/login'
     @RequestMapping("users/login")
@@ -64,6 +73,34 @@ public class UserController {
         } else {
             return "users/login";
         }
+    }
+    
+    //This checkPassWord method checks the strength of password
+    private static boolean checkPassWord(String str) {
+    	
+        char ch;
+        boolean alphabetFlag = false;
+        boolean specialCharacterFlag = false;
+        boolean numberFlag = false;
+        
+        String specialCharacters=" !#$%&'()*+,-./:;<=>?@[]^_`{|}";
+        
+        for(int i=0;i < str.length();i++) {
+            ch = str.charAt(i);
+
+            if( Character.isDigit(ch)) {
+                numberFlag = true;
+            }
+            else if (Character.isAlphabetic(ch)) {
+            	alphabetFlag = true;
+            } else if ( specialCharacters.contains(Character.toString(ch))) {
+            	specialCharacterFlag=true;
+            }
+           
+        }
+        
+        
+        return (numberFlag && alphabetFlag && specialCharacterFlag);
     }
 
     //This controller method is called when the request pattern is of type 'users/logout' and also the incoming request is of POST type

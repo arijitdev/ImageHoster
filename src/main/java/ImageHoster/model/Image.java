@@ -45,6 +45,7 @@ public class Image {
     @JoinColumn(name = "user_id")
     private User user;
 
+        
     //The attribute contains a list of all the tags of an image
     //Note that no column will be generated for this attribute in the database instead a new table will be created
     //Since the mapping is Many to Many, a new table will be generated containing the two columns both referencing to the primary key of both the tables ('images', 'tags')
@@ -54,20 +55,21 @@ public class Image {
     public Image() {
     }
 
-    public Image(int i, String s, String s1, Date date) {
-        this.id = i;
-        this.title = s;
-        this.imageFile = s1;
+    public Image(int id, String title, String imageFile, Date date) {
+        this.id = id;
+        this.title = title;
+        this.imageFile = imageFile;
         this.date = date;
     }
 
-    public Image(int i, String s, String s1, String s2, Date date) {
-        this.id = i;
-        this.title = s;
-        this.imageFile = s1;
-        this.description = s2;
+    public Image(int id, String title, String imageFile, String description, Date date) {
+        this.id = id;
+        this.title = title;
+        this.imageFile = imageFile;
+        this.description = description;
         this.date = date;
     }
+
 
 
     public Integer getId() {
